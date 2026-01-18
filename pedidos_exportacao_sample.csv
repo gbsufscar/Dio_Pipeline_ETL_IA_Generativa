@@ -1,0 +1,16 @@
+pedido_id,pais,produto,toneladas,data_pedido
+1,Brasil,Soja,150.5,2026-01-01
+2,Argentina,Trigo,200.3,2026-01-02
+3,Brasil,Café,75.8,2026-01-03
+4,Chile,Cobre,300.0,2026-01-04
+5,Argentina,Soja,180.2,2026-01-05
+6,Brasil,Açúcar,120.0,2026-01-06
+7,Chile,Frutas,90.5,2026-01-07
+8,Brasil,Soja,220.0,2026-01-08
+9,Argentina,Trigo,150.0,2026-01-09
+10,Chile,Cobre,280.0,2026-01-10
+11,Brasil,Café,95.5,2026-01-11
+12,Argentina,Soja,160.8,2026-01-12
+13,Brasil,Açúcar,110.2,2026-01-13
+14,Chile,Frutas,85.0,2026-01-14
+15,Brasil,Soja,175.5,2026-01-15

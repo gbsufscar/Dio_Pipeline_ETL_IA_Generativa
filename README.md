@@ -29,10 +29,14 @@ O objetivo principal é demonstrar o fluxo completo de dados através das três 
 ```
 Desafio_ETL/
 │
-├── Desafio_Pipeline_ETL_Python.ipynb    # Notebook principal com o pipeline ETL
-├── desafio_etl_dio_santander_sample.csv # Arquivo de dados de entrada
-├── desafio_etl_dio_santander_atualizado.csv # Arquivo de saída com dados processados
-└── README.md                             # Este arquivo
+├── Desafio_Pipeline_ETL_Python.ipynb           # Notebook principal com o pipeline ETL
+├── relatorio_pedidos_exportacao.ipynb          # Relatório de exportação por país
+├── desafio_etl_dio_santander_sample.csv        # Arquivo de dados de entrada (usuários)
+├── pedidos_exportacao_sample.csv               # Arquivo de dados de entrada (pedidos)
+├── desafio_etl_dio_santander_atualizado.csv    # Arquivo de saída com dados processados
+├── toneladas_por_pais.json                     # Resultado: toneladas acumuladas por país
+├── relatorio_exportacao_por_pais.csv           # Relatório de exportação (CSV)
+└── README.md                                    # Este arquivo
 ```
 
 ## 🔄 Fluxo do Pipeline ETL
@@ -105,6 +109,7 @@ openai.api_key = 'SUA_CHAVE_DE_API_AQUI'
 
 ## 📈 Resultados
 
+### Pipeline de Usuários Bancários
 O pipeline processa com sucesso:
 - ✅ Leitura de dados de usuários existentes
 - ✅ Adição de novos usuários (Lia e Rafa)
@@ -112,13 +117,75 @@ O pipeline processa com sucesso:
 - ✅ Geração de arquivo CSV atualizado
 - ✅ Validação dos dados processados
 
+### Relatório de Pedidos de Exportação
+O novo módulo de exportação processa:
+- ✅ Leitura de dados de pedidos de exportação por país
+- ✅ Acumulação de toneladas exportadas por país usando dicionário
+- ✅ Geração de arquivo JSON com totais por país
+- ✅ Criação de relatório CSV ordenado por volume
+- ✅ Estatísticas e análise de dados de exportação
+
 ## 🔍 Principais Funcionalidades
 
+### Pipeline de Usuários Bancários
 1. **Carregamento de Dados**: Leitura eficiente de arquivos CSV
 2. **Manipulação de DataFrames**: Uso de Pandas para operações de dados
 3. **Concatenação de Dados**: Adição de novos registros mantendo a integridade
 4. **Estruturação JSON**: Trabalho com dados estruturados em formato JSON
 5. **Persistência de Dados**: Salvamento de dados processados
+
+### Relatório de Pedidos de Exportação
+1. **Extração de Dados**: Leitura de pedidos de exportação de arquivo CSV
+2. **Acumulação por Dicionário**: Implementação de algoritmo para acumular toneladas por país usando estrutura de dicionário Python
+3. **Agregação com Pandas**: Uso de `groupby()` para agregação eficiente de dados
+4. **Múltiplos Formatos de Saída**: Geração de resultados em JSON e CSV
+5. **Análise Estatística**: Cálculo de totais, médias e identificação de maiores exportadores
+
+## 📦 Relatório de Pedidos de Exportação
+
+O notebook `relatorio_pedidos_exportacao.ipynb` demonstra como acumular toneladas de exportação por país usando um dicionário Python, seguindo o padrão ETL:
+
+### Fluxo ETL
+
+**Extract (Extração)**:
+- Lê dados de pedidos do arquivo `pedidos_exportacao_sample.csv`
+- Cada pedido contém: país, produto, toneladas e data
+
+**Transform (Transformação)**:
+- Itera sobre cada pedido do DataFrame
+- Acumula as toneladas de exportação por país em um dicionário
+- Implementa duas abordagens:
+  1. **Loop manual**: Demonstra a lógica de acumulação explicitamente
+  2. **Pandas groupby**: Método mais eficiente para agregação
+
+**Load (Carregamento)**:
+- Salva o dicionário em formato JSON (`toneladas_por_pais.json`)
+- Gera relatório CSV com totais ordenados por volume
+- Exibe estatísticas consolidadas
+
+### Exemplo de Uso
+
+```python
+# Acumular toneladas por país usando dicionário
+toneladas_por_pais = {}
+for index, pedido in df_pedidos.iterrows():
+    pais = pedido['pais']
+    toneladas = pedido['toneladas']
+    
+    if pais in toneladas_por_pais:
+        toneladas_por_pais[pais] += toneladas
+    else:
+        toneladas_por_pais[pais] = toneladas
+```
+
+### Resultado Esperado
+
+```
+Toneladas acumuladas por país:
+Argentina: 691.30 toneladas
+Brasil: 947.50 toneladas
+Chile: 755.50 toneladas
+```
 
 ## 📚 Referências
 
